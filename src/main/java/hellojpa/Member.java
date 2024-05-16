@@ -1,15 +1,40 @@
 package hellojpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@SequenceGenerator(name = "member_seq_generator",
+sequenceName = "member_seq")
 public class Member {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "member_seq_generator") // 자동지정 오라클이면 sequence MYSQL에는 Auto Increment
+    // GenerationType.IDENTITY => 키 생성을 DB에 위임
     private Long id;
-    private String name;
+    @Column(name = "name") //DB의 컬럼명은 name
+    private String username;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    // ------------------------------------------------------------- //
+  /*  private Integer age;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    private LocalDate createDate2;
+    private LocalDateTime credateDate3;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+    @Lob
+    private String description;*/
 
 }

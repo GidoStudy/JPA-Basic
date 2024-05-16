@@ -14,15 +14,22 @@ public class JpaMain {
         //code
         transaction.begin();
         try{
+            /*
             //비영속 상태
             Member member = new Member();
             member.setId(1L);
             member.setName("Hello");
+            Member member2 = new Member(2L,"B");
             // 영속 상태로 전환 -> 영속성 컨텍스트를 통해 관리된다.
             em.persist(member);
+            em.persist(member2);
             Member findMember = em.find(Member.class, 1L);
-            findMember.setName("HelloJPA");
-
+            findMember.setName("HelloJPA"); // 변경 감지를 통해 update 쿼리가 나감
+            System.out.println("==============================="); // commit 할때 한번에 flush
+            */
+            Member member = new Member();
+            member.setUsername("Name");
+            em.persist(member);
 
             transaction.commit();
         }catch (Exception e){
