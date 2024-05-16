@@ -18,13 +18,14 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "member_seq_generator") // 자동지정 오라클이면 sequence MYSQL에는 Auto Increment
     // GenerationType.IDENTITY => 키 생성을 DB에 위임
     private Long id;
+
     @Column(name = "name") //DB의 컬럼명은 name
     private String username;
+
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    // ------------------------------------------------------------- //
   /*  private Integer age;
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
