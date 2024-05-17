@@ -7,13 +7,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter @Setter
+@Getter
 @Entity
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SequenceGenerator(name = "member_seq_generator",
 sequenceName = "member_seq")
-public class Member {
+public class Member extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "member_seq_generator") // 자동지정 오라클이면 sequence MYSQL에는 Auto Increment
     // GenerationType.IDENTITY => 키 생성을 DB에 위임
@@ -26,7 +27,18 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-  /*  private Integer age;
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+
+
+    public void setTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
+    /*  private Integer age;
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
     @Temporal(TemporalType.TIMESTAMP)
