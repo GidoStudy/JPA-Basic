@@ -23,14 +23,22 @@ public class Member extends BaseEntity{
     @Column(name = "name") //DB의 컬럼명은 name
     private String username;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
+    @Embedded
+    private Period period;
+    @Embedded
+    private Address homeAddress;
+    /* 같은 Address 클래스로 다른 컬럼으로 매핑하고 싶을땐 이거 쓰면되는데 방법은 다시 찾아보자
+    @Embedded
+    @AttributeOverrides()
+    private Address workAddress;*/
 
 
     public void setTeam(Team team) {
