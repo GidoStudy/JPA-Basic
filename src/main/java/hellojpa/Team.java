@@ -1,25 +1,27 @@
 package hellojpa;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-public class Team  extends BaseEntity{
-    @Id
-    @GeneratedValue
+@Getter @Setter
+public class Team {
+
+    @Id @GeneratedValue
     @Column(name = "TEAM_ID")
-    private Long id;
+    private Long Id;
     private String name;
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
+    public void addMember(Member member) {
+        member.setTeam(this);
+        members.add(member);
+    }
 }
